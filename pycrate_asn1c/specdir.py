@@ -130,8 +130,6 @@ ASN_SPECS_CORE = {
     # ITU-T spec
     'TCAP'      : 'ITUT_Q773_1997-06',
     'TCAPExt'   : 'ITUT_Q775_1997-06',
-    # ANSI spec
-    'TCAP_ANSI' : 'ANSI_TCAP',
     # ETSI / 3GPP spec
     'MAP'       : '3GPP_MAP_29002',
     'CAP'       : '3GPP_CAP_29078',
