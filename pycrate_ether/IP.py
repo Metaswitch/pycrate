@@ -46,8 +46,9 @@ from pycrate_core.repr import *
 
 #------------------------------------------------------------------------------#
 # Here was the code borrowed from the scapa.
-# "MSW" or the entity working for it will provide its own implementation 
-# with all copyrights and licenses preserved
+# "MSW" or the entity working for it will provide its own implementation, 
+# with all copyrights and licenses preserved.
+# <implementation>
 #------------------------------------------------------------------------------#
 
 
