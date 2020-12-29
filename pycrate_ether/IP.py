@@ -45,32 +45,9 @@ from pycrate_core.repr import *
 
 
 #------------------------------------------------------------------------------#
-# code borrowed from scapy:
-# see scapy code at https://github.com/secdev/scapy/blob/master/scapy/utils.py
-# see http://www.secdev.org/projects/scapy for more informations
-# Copyright (C) Philippe Biondi <phil@secdev.org>
-# This program is published under a GPLv2 license
-
-if pack('H', 1) == b'\0\x01': # big endian
-    def checksum(pkt):
-        if len(pkt) % 2 == 1:
-            pkt += b'\0'
-        s = sum(array('H', pkt))
-        s = (s >> 16) + (s & 0xffff)
-        s += s >> 16
-        s = ~s
-        return s & 0xffff
-else:
-    def checksum(pkt):
-        if len(pkt) % 2 == 1:
-            pkt += b'\0'
-        s = sum(array('H', pkt))
-        s = (s >> 16) + (s & 0xffff)
-        s += s >> 16
-        s = ~s
-        return (((s>>8)&0xff)|s<<8) & 0xffff
-
-# End-Of-Scapy
+# Here was the code borrowed from the scapa.
+# "MSW" or the entity working for it will provide its own implementation 
+# with all copyrights and licenses preserved
 #------------------------------------------------------------------------------#
 
 
