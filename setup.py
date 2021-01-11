@@ -17,7 +17,6 @@ setup(
               "pycrate_csn1dir",
               "pycrate_mobile",
               "pycrate_diameter",
-              "pycrate_corenet",
               "pycrate_sys",
               "pycrate_crypto",
               ],
@@ -53,7 +52,6 @@ setup(
         #"pycrate_asn1dir"  : ["*.asn", "*.json"],
         #"pycrate_csn1dir"  : ["*.csn"],
         "pycrate_diameter" : ["*.xml"],
-        "pycrate_corenet"  : ["AuC.db"],
         },
     #include_package_data=False,
     
