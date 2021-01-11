@@ -4,6 +4,7 @@
 # * Version : 0.4
 # *
 # * Copyright 2016. Benoit Michau. ANSSI.
+# * Contains function “checksum”, copyright 2021, Metaswitch Networks.
 # *
 # * This library is free software; you can redistribute it and/or
 # * modify it under the terms of the GNU Lesser General Public
@@ -27,6 +28,7 @@
 # *--------------------------------------------------------
 #*/ 
 
+import sys
 from socket import inet_aton, inet_ntoa, AF_INET, AF_INET6
 from struct import pack
 from array import array
@@ -45,10 +47,55 @@ from pycrate_core.repr import *
 
 
 #------------------------------------------------------------------------------#
-# Here was the code borrowed from the scapa.
+# Here was the code borrowed from scapy.
 # "MSW" or the entity working for it will provide its own implementation, 
 # with all copyrights and licenses preserved.
-# <implementation>
+
+if sys.byteorder == "little":
+    def align_endianness(num):
+        return num >> 8 | ((num << 8) & 0xFF00)
+else:
+    def align_endianness(num):
+        return num
+
+
+def checksum(header):
+    """
+    Calculate the checksum of the IPv4 header.
+    Used to fill the checksum chunk on the source side.
+
+    The implementation is based on:
+    - RFC 791 specification (section 3.1 - Header Checksum)
+      https://tools.ietf.org/html/rfc791#page-11
+    - RFC 1071 - Computing the Internet Checksum
+      https://tools.ietf.org/html/rfc1071
+    - Wikipedia entry about the IPv4 header checksum
+      https://en.wikipedia.org/wiki/IPv4_header_checksum 
+
+    To calculate the checksum, we first calculate the sum of
+    each 16-bit value within the header.
+    Any number that is carried over the 16-bit sum is truncated
+    and added to the sum itself. This process is repeated until
+    there's no carry and the result can be represented as a 16-bit number.
+    To obtain the checksum we take the ones' complement of this result.
+    """
+    chunks_sum = sum(
+        [
+            int.from_bytes(header[i : i + 2], byteorder=sys.byteorder)
+            for i in range(0, len(header), 2)
+        ]
+    )
+
+    while chunks_sum > 0xFFFF:
+        carry = (chunks_sum & 0xFF0000) >> 16
+        rest = chunks_sum & 0xFFFF
+        chunks_sum = carry + rest
+
+    # get 16-bit one's complement of the resulting sum
+    chunks_sum = ~chunks_sum & 0xFFFF
+
+    return align_endianness(chunks_sum)
+
 #------------------------------------------------------------------------------#
 
 
