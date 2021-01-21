@@ -44,7 +44,7 @@ setup(
     # to be installed
     # only compiled .py modules are installed by default
     # for pycrate_diameter:
-    # .xml files are converted to Python dicts and may be updated from time to 
+    # .xml files are converted to Python dicts and may be updated from time to
     # time
     # for pycrate_corenet:
     # the AuC.db file is the mobile subscriber authentication database
@@ -61,7 +61,7 @@ setup(
     author_email="michau.benoit@gmail.com",
     description="A software suite to handle various data formats",
     long_description=open("README.md", "r").read(),
-    url="https://github.com/P1sec/pycrate/",
+    url="https://github.com/metaswitch/pycrate/",
     keywords="protocol format asn1 compiler csn1 encoder decoder mobile core network Diameter NAS S1AP NGAP TCAP MAP",
     license="LGPL v2.1+",
     )
